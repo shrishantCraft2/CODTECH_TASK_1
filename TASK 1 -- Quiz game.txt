@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void displayQuestion(int questionNumber, char question[], char options[][50], char correctOption);
+int main() {
+    int score = 0;
+    int totalQuestions = 3;
+
+    // Array of questions, options, and correct answers
+    char questions[3][100] = {
+        "What is the capital of France?",
+        "Which planet is known as the Red Planet?",
+        "What is the result of 5 + 3?"
+    };
+
+    char options[3][4][50] = {
+        {"A. Berlin", "B. Madrid", "C. Paris", "D. Rome"},
+        {"A. Venus", "B. Mars", "C. Jupiter", "D. Saturn"},
+        {"A. 6", "B. 7", "C. 8", "D. 9"}
+    };
+
+    char correctOptions[3] = {'C', 'B', 'C'};
+
+    printf("Welcome to the Quiz Game!\n");
+    printf("Answer the questions by typing the correct option (A, B, C, or D).\n\n");
+
+    // Loop through each question
+    for (int i = 0; i < totalQuestions; i++) {
+        displayQuestion(i + 1, questions[i], options[i], correctOptions[i]);
+        char userAnswer;
+
+        printf("Your answer: ");
+        scanf(" %c", &userAnswer);
+        userAnswer = toupper(userAnswer);
+
+        if (userAnswer == correctOptions[i]) {
+            printf("Correct!\n\n");
+            score++;
+        } else {
+            printf("Wrong! The correct answer was %c.\n\n", correctOptions[i]);
+        }
+    }
+
+    // Display final score
+    printf("Quiz Over!\n");
+    printf("Your final score is: %d out of %d\n", score, totalQuestions);
+
+    // Feedback based on score
+    if (score == totalQuestions) {
+        printf("Excellent! You got all the answers right!\n");
+    } else if (score >= totalQuestions / 2) {
+        printf("Good job! You got more than half correct.\n");
+    } else {
+        printf("Better luck next time!\n");
+    }
+
+    return 0;
+}
+
+void displayQuestion(int questionNumber, char question[], char options[][50], char correctOption) {
+    printf("Question %d: %s\n", questionNumber, question);
+    for (int i = 0; i < 4; i++) {
+        printf("%s\n", options[i]);
+    }
+}
